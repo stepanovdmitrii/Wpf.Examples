@@ -59,13 +59,13 @@ namespace Wpf.Async
                 _thread.Start();
                 _thread.Name = "Worker";
             }
-            ProcessingStarted?.Invoke();
         }
 
         private void Run()
         {
             try
             {
+                ProcessingStarted?.Invoke();
                 for (int i = 0; i < 100; ++i)
                 {
                     _tokenSource.Token.ThrowIfCancellationRequested();

@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace Wpf.Async
 {
-    internal sealed class CancelTaskCommand : ICommand
+    internal sealed class CancelTaskCommand : CommandCommon
     {
         private readonly ITaskExecutor _executor;
 
@@ -19,18 +19,16 @@ namespace Wpf.Async
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+                RaiseCanExecuteChanged();
             });
         }
 
-        public event EventHandler CanExecuteChanged;
-
-        public bool CanExecute(object parameter)
+        public override bool CanExecute(object parameter)
         {
             return _executor.IsRunning;
         }
 
-        public void Execute(object parameter)
+        public override void Execute(object parameter)
         {
             _executor.Cancel();
         }

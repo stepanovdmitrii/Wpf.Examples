@@ -1,15 +1,11 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows;
 
 namespace Wpf.Async
 {
 
-    internal sealed class StartTaskCommand: ICommand
+    internal sealed class StartTaskCommand: CommandCommon
     {
         private readonly ITaskExecutor _taskExecutor;
-
-        public event EventHandler CanExecuteChanged;
 
         public StartTaskCommand(ITaskExecutor taskExecutor)
         {
@@ -22,16 +18,16 @@ namespace Wpf.Async
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+                RaiseCanExecuteChanged();
             });
         }
 
-        public bool CanExecute(object parameter)
+        public override bool CanExecute(object parameter)
         {
             return !_taskExecutor.IsRunning;
         }
 
-        public void Execute(object parameter)
+        public override void Execute(object parameter)
         {
             _taskExecutor.Start();
         }
