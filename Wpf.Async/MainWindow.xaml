@@ -1,0 +1,25 @@
+﻿<Window x:Class="Wpf.Async.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf.Async"
+        xmlns:properties="clr-namespace:Wpf.Async.Properties"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        DataContext="local:MainWindowViewModel">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0" Grid.Column="0" Content="{x:Static properties:Resources.StartButtonTitle }" Margin="8" Command="{Binding StartCommand}"/>
+        <ProgressBar Grid.Row="0" Grid.Column="1" Minimum="0" Maximum="100" Margin="8" Value="{Binding Progress}" />
+        <Button Grid.Row="0" Grid.Column="2" Content="{x:Static properties:Resources.CancelButtonTitle }" Margin="8"  Command="{Binding CancelCommand}"/>
+    </Grid>
+</Window>
