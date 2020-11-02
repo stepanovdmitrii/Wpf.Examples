@@ -1,8 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Input;
-
-namespace Wpf.Async
+﻿namespace Wpf.Async
 {
     internal sealed class CancelTaskCommand : CommandCommon
     {
@@ -17,10 +13,7 @@ namespace Wpf.Async
 
         private void OnProcessingChanged()
         {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                RaiseCanExecuteChanged();
-            });
+            RaiseCanExecuteChanged();
         }
 
         public override bool CanExecute(object parameter)

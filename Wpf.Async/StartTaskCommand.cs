@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace Wpf.Async
+﻿namespace Wpf.Async
 {
 
     internal sealed class StartTaskCommand: CommandCommon
@@ -16,10 +14,7 @@ namespace Wpf.Async
 
         private void OnProcessingChanged()
         {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                RaiseCanExecuteChanged();
-            });
+            RaiseCanExecuteChanged();
         }
 
         public override bool CanExecute(object parameter)

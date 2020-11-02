@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Wpf.Async
@@ -12,7 +13,14 @@ namespace Wpf.Async
         }
         protected void RaiseCanExecuteChanged()
         {
-            CommandManager.InvalidateRequerySuggested();
+            if (Application.Current.Dispatcher.CheckAccess())
+            {
+                CommandManager.InvalidateRequerySuggested();
+            }
+            else
+            {
+                Application.Current.Dispatcher.Invoke(() => { CommandManager.InvalidateRequerySuggested(); });
+            }
         }
 
         public abstract bool CanExecute(object parameter);
