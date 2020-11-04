@@ -15,7 +15,7 @@ namespace Wpf.Async
     internal sealed class TaskExecutor : ITaskExecutor, IDisposable
     {
         private readonly object _guard = new object();
-        private readonly IProgressListener _listener;
+        private readonly IProgress<int> _progress;
 
         private CancellationTokenSource _tokenSource;
         private Thread _thread;
@@ -32,9 +32,9 @@ namespace Wpf.Async
             }
         }
 
-        public TaskExecutor(IProgressListener listener)
+        public TaskExecutor(IProgress<int> progress)
         {
-            _listener = listener;
+            _progress = progress;
             _isRunning = false;
         }
 
@@ -70,13 +70,13 @@ namespace Wpf.Async
                 {
                     _tokenSource.Token.ThrowIfCancellationRequested();
                     Thread.Sleep(TimeSpan.FromSeconds(1.0));
-                    _listener.SetProgress(i);
+                    _progress.Report(i);
                 }
             }
             catch { }
             finally
             {
-                _listener.SetProgress(100);
+                _progress.Report(100);
                 lock (_guard)
                 {
                     _isRunning = false;

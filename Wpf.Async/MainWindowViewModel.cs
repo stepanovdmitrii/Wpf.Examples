@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace Wpf.Async
 {
-    internal sealed class MainWindowViewModel : INotifyPropertyChanged, IProgressListener, IDisposable
+    internal sealed class MainWindowViewModel : INotifyPropertyChanged, IProgress<int>, IDisposable
     {
         private readonly TaskExecutor _executor;
         private readonly StartTaskCommand _task;
@@ -36,7 +36,7 @@ namespace Wpf.Async
             }
         }
 
-        public void SetProgress(int progress)
+        public void Report(int progress)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
